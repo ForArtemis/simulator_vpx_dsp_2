@@ -11,6 +11,8 @@
 #include <xdc/runtime/System.h>
 #include <xdc/runtime/Sysmin.h>
 #include <ti/ipc/MessageQ.h>
+#include <ti/csl/tistdtypes.h>
+
 //#include <ti/ipc/Notify.h>
 //#include <xdc/runtime/System.h>	//System_printf()
 
@@ -196,8 +198,8 @@ typedef struct
 
 typedef struct
 {
-	int		TargetFrameId;
-	int		JammingFrameId;
+	Uint32		TargetFrameId;
+	Uint32		JammingFrameId;
 	union
 	{
 		JammingIsrjParam0	JammingIsrjParam0Hyplink;
@@ -205,18 +207,18 @@ typedef struct
 	}JammingParamDsp1ToDsp2;
 	union
 	{
-		char					JammingIsrjParam0HyplinkBack;
+		Uint8					JammingIsrjParam0HyplinkBack;
 		JammingIsrjParam1Back	JammingIsrjParam1HyplinkBack;
 	}JammingParamDsp2ToDsp1;
-	int		NewFlag;	//为1则表示新的一波参数
+	Uint8		NewFlag;	//为1则表示新的一波参数
 }HyplinkDataDsp1Dsp2;
 
 /* Message struct */
 typedef struct
 {
 	MessageQ_MsgHeader 	header;
-	int					TargetFrameId;
-	int	 				JammingFrameId;
+	Uint32					TargetFrameId;
+	Uint32	 				JammingFrameId;
 	union
 	{
 		JammingIsrjParam0 			JammingIsrjParam0Hyplink;
@@ -238,13 +240,13 @@ typedef struct
 typedef struct
 {
 	MessageQ_MsgHeader 	header;
-	unsigned int 		JammingDopplerFrePinc;
-	unsigned short 		JammingDistanceDelay;
-	unsigned short		JammingAmplitude;
-	char				SampleWidth;
-	char	            RepeatWidth;
-	char	            RepeatStartTime;
-	char	            RepeatNum;
+	Uint32		 		JammingDopplerFrePinc;
+	Uint16		 		JammingDistanceDelay;
+	Uint16				JammingAmplitude;
+	Uint8				SampleWidth;
+	Uint8	            RepeatWidth;
+	Uint8	            RepeatStartTime;
+	Uint8	            RepeatNum;
 } MsgCore2ToCore1;
 
 /* 计算好的角度 */
@@ -258,31 +260,31 @@ typedef struct
 typedef struct
 {
 	MessageQ_MsgHeader 	header;
-	unsigned short 		ProcId;
-	unsigned short      OrientationVectorReal[20];	//Each core calculate and send 20 orientation vector
-	unsigned short      OrientationVectorImag[20];
+	Uint16		 		ProcId;
+	Uint16				OrientationVectorReal[20];	//Each core calculate and send 20 orientation vector
+	Uint16				OrientationVectorImag[20];
 } MsgCore34567ToCore1;
 
 /* SRIO 数据帧 */
 typedef struct
 {
-	unsigned int	JammingId;
+	Uint32			JammingId;
 }SrioFrameNoJamming;	//除导向性矢量外的参数
 typedef struct
 {
-	unsigned int	JammingId;
-	unsigned char	SampleWidth;
-	unsigned char	RepeatWidth;
-	unsigned char	RepeatStartTime;
-	unsigned char	RepeatNum;
-	unsigned int 	JammingDopplerFrePinc;
-	unsigned short 	JammingDistanceDelay;
-	unsigned short	JammingAmplitude;
+	Uint32			JammingId;
+	Uint8			SampleWidth;
+	Uint8			RepeatWidth;
+	Uint8			RepeatStartTime;
+	Uint8			RepeatNum;
+	Uint32			JammingDopplerFrePinc;
+	Uint16			JammingDistanceDelay;
+	Uint16			JammingAmplitude;
 }SrioFrameIsrj;	//除导向性矢量外的参数
 typedef struct
 {
-	unsigned short  OrientationVectorReal[ARRAY_NUM/3];
-	unsigned short  OrientationVectorImag[ARRAY_NUM/3];
+	Uint16			OrientationVectorReal[ARRAY_NUM/3];
+	Uint16			OrientationVectorImag[ARRAY_NUM/3];
 }SrioFrameOrientationVectorReal;	//导向性矢量参数，包含32个导向性矢量，因为一块DA产生板可以产生32个通道的回波
 
 
