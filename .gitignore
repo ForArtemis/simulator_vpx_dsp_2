@@ -45,3 +45,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#不包括CCS生成的内容
+Debug/
+.config/
+.launches/
+.settings/
+.metadata/
+.plugins/
+dvt/
+
+
+*.pdom
+*.pdom
+*.index
+*.snap
+*.xml
